@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8758606969633118393}
   - component: {fileID: 438610220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Path Tile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +54,14 @@ PrefabInstance:
     - target: {fileID: 196696, guid: 4f4d79733592d482ab4849e90d1e9fb2, type: 3}
       propertyPath: m_Name
       value: env_crete1b
+      objectReference: {fileID: 0}
+    - target: {fileID: 196696, guid: 4f4d79733592d482ab4849e90d1e9fb2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 196698, guid: 4f4d79733592d482ab4849e90d1e9fb2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 496696, guid: 4f4d79733592d482ab4849e90d1e9fb2, type: 3}
       propertyPath: m_RootOrder
