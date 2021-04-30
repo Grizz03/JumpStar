@@ -10,9 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public bool onGround;
     public float jumpForce;
-
     public Animator anim;
-
     public int coinsCollected;
 
     // public Rigidbody theRB;

@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
 
     private bool coinHitThisFrame;
 
+    //speeding up
+    public float timeToIncreaseSpeed;
+    private float increaseSpeedCounter;
+    public float speedMultiplier;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +26,7 @@ public class GameManager : MonoBehaviour
         {
             coinsCollected = PlayerPrefs.GetInt("coinsCollected");
         }
-
+        increaseSpeedCounter = timeToIncreaseSpeed;
     }
 
     // Update is called once per frame
@@ -36,6 +41,12 @@ public class GameManager : MonoBehaviour
             _canMove = true;
 
             gameStarted = true;
+        }
+
+        //increase speed over time
+        if (canMove)
+        {
+            increaseSpeedCounter -= Time.deltaTime;
         }
 
         coinHitThisFrame = false;
