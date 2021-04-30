@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PathGeneration : MonoBehaviour
 {
+    // public GameObject pathObject;
+
     public GameObject pathObject;
 
     public Transform thresholdPoint;
@@ -20,8 +22,13 @@ public class PathGeneration : MonoBehaviour
         if(transform.position.z < thresholdPoint.position.z)
         {
             //copy pathObject if true
+            // Instantiate(pathObject, transform.position, transform.rotation);
+            // transform.position += new Vector3(0f, 0f, 3.2f);
+
+            //Random path generation
+    
             Instantiate(pathObject, transform.position, transform.rotation);
-            transform.position += new Vector3(0f, 0f, 2f);
+            transform.position += new Vector3(0f, 0f, 3.2f);
         }
     }
 }
