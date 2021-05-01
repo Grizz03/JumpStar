@@ -353,7 +353,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'But you reached:'
+  m_Text: 'You reached:'
 --- !u!222 &25041825
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3866,7 +3866,7 @@ GameObject:
   - component: {fileID: 714829570}
   - component: {fileID: 714829569}
   m_Layer: 5
-  m_Name: Coins Text (5)
+  m_Name: coinsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8674,7 +8674,7 @@ GameObject:
   - component: {fileID: 1451943334}
   - component: {fileID: 1451943333}
   m_Layer: 5
-  m_Name: Coins Text (3)
+  m_Name: distanceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10801,6 +10801,9 @@ MonoBehaviour:
   tapMessage: {fileID: 264173121}
   coinsText: {fileID: 1356695576}
   distanceText: {fileID: 901137207}
+  deathScreen: {fileID: 1147639833}
+  deathScreenCoins: {fileID: 714829571}
+  deathScreenDistance: {fileID: 1451943335}
 --- !u!4 &1727285578
 Transform:
   m_ObjectHideFlags: 0

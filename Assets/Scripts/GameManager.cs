@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject deathScreen;
     public Text deathScreenCoins;
     public Text deathScreenDistance;
+    public float deathScreenDelay;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +96,18 @@ public class GameManager : MonoBehaviour
         _canMove = false;
 
         PlayerPrefs.SetInt("coinsCollected", coinsCollected);
+
+        // deathScreen.SetActive(true);
+        deathScreenCoins.text = coinsCollected + " Coins!";
+        deathScreenDistance.text = Mathf.Floor(distanceCovered) + "m!";
+
+        StartCoroutine("ShowDeathScreen");
+    }
+
+    public IEnumerator ShowDeathScreen()
+    {
+        yield return new WaitForSeconds(deathScreenDelay);
+        deathScreen.SetActive(true);
     }
 
     public void AddCoin()
