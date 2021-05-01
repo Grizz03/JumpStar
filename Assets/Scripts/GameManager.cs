@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     static public float _worldSpeed;
     public int coinsCollected;
     private bool coinHitThisFrame;
+
     //speeding up
     public float timeToIncreaseSpeed;
     private float increaseSpeedCounter;
@@ -21,19 +23,27 @@ public class GameManager : MonoBehaviour
     public float speedIncreaseAmount;
     private float accelerationStore;
     private float worldSpeedStore;
+
     public GameObject tapMessage;
     public Text coinsText;
     public Text distanceText;
     private float distanceCovered;
-
     public GameObject deathScreen;
     public Text deathScreenCoins;
     public Text deathScreenDistance;
     public float deathScreenDelay;
+    public string mainMenuName;
+    public GameObject notEnoughCoinsScreen;
+    public PlayerMovement thePlayer;
+    public GameObject pauseScreen;
+    public GameObject[] models;
+    public GameObject defaultChar;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        pauseScreen.SetActive(false);
         if (PlayerPrefs.HasKey("coinsCollected"))
         {
             coinsCollected = PlayerPrefs.GetInt("coinsCollected");
@@ -46,6 +56,20 @@ public class GameManager : MonoBehaviour
 
         coinsText.text = "Coins: " + coinsCollected;
         distanceText.text = distanceCovered + "m";
+
+        //loads model for character
+        for (int i = 0; i < models.Length; i++)
+        {
+            if (models[i].name == PlayerPrefs.GetString("SelectedChar"))
+            {
+                GameObject clone = Instantiate(models[i], thePlayer.modelHolder.position, thePlayer.modelHolder.rotation);
+
+                clone.transform.parent = thePlayer.modelHolder;
+                Destroy(clone.GetComponent<Rigidbody>());
+
+                defaultChar.SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -86,7 +110,6 @@ public class GameManager : MonoBehaviour
             distanceText.text = Mathf.Floor(distanceCovered) + "m";
         }
 
-
         coinHitThisFrame = false;
     }
 
@@ -119,5 +142,58 @@ public class GameManager : MonoBehaviour
 
             coinsText.text = "Coins: " + coinsCollected;
         }
+    }
+
+    public void ContinueGame()
+    {
+        if (coinsCollected >= 100)
+        {
+
+            coinsCollected -= 100;
+
+            canMove = true;
+            _canMove = true;
+            deathScreen.SetActive(false);
+            coinsText.text = "Coins: " + coinsCollected;
+            thePlayer.ResetPlayer();
+        }
+        else
+        {
+            notEnoughCoinsScreen.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GetCoins()
+    {
+
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(mainMenuName);
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void CloseNotEnoughCoins()
+    {
+        notEnoughCoinsScreen.SetActive(false);
+    }
+
+    public void ResumeGame()
+    {
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void PausedGame()
+    {
+        pauseScreen.SetActive(true);
+        Time.timeScale = 0f;
     }
 }

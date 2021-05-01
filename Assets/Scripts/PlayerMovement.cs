@@ -13,12 +13,18 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
     public int coinsCollected;
 
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+
+    public float invincibleTime;
+    private float invincibleTimer;
     // public Rigidbody theRB;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -40,6 +46,12 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        // control invincibility
+        if (invincibleTimer > 0f)
+        {
+            invincibleTimer -= Time.deltaTime;
+        }
+
         // control animations
         anim.SetBool("walking", theGM.canMove);
         anim.SetBool("onground", onGround);
@@ -49,11 +61,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Hazard")
         {
-            theGM.HitHazard();
+            if (invincibleTimer <= 0f)
+            {
+                theGM.HitHazard();
 
-            theRB.constraints = RigidbodyConstraints.None;
+                theRB.constraints = RigidbodyConstraints.None;
 
-            theRB.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, -GameManager._worldSpeed / 2.2f);
+                theRB.velocity = new Vector3(Random.Range(GameManager._worldSpeed / 2f, -GameManager._worldSpeed / 2f), 2.5f, -GameManager._worldSpeed / 2.2f);
+            }
         }
 
         if (other.tag == "Coin")
@@ -62,6 +77,15 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+    }
+
+    public void ResetPlayer()
+    {
+        theRB.constraints = RigidbodyConstraints.FreezeRotation;
+        transform.rotation = startRotation;
+        transform.position = startPosition;
+
+        invincibleTimer = invincibleTime;
     }
 
 }
